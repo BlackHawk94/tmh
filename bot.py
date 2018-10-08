@@ -15,7 +15,7 @@ import sys, traceback
 import textwrap
 
 def get_prefix(bot, message):
-    prefixes = ['=']
+    prefixes = ['-']
     if not message.guild:
         return '?'
     return commands.when_mentioned_or(*prefixes)(bot, message)
