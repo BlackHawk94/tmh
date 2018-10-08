@@ -6,4 +6,4 @@ smmap2
 urllib3
 websockets
 pyparsing
-sympy
+psutil
