@@ -7,3 +7,4 @@ urllib3
 websockets
 pyparsing
 psutil
+pytz
