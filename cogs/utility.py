@@ -12,26 +12,6 @@ import pytz
 class utility:
     def __init__(self, bot):
 	    self.bot = bot
-
-
-    @commands.command(hidden=True)
-    @commands.has_permissions(manage_guild = True)
-    async def addemoji(self, ctx, name, id):
-	    '''add new emojis by id'''
-	    url = f"https://cdn.discordapp.com/emojis/{id}"
-	    async with self.bot.session.get(url) as resp:
-			    image = await resp.read()
-	    done = await ctx.guild.create_custom_emoji(name = name, image = image)
-	    await ctx.send("Emoji {} created!".format(done))
-
-    @commands.command(hidden=True)
-    @commands.has_permissions(manage_guild = True)
-    async def createemoji(self, ctx, name, url):
-        '''add new emojis by url'''
-        async with self.bot.session.get(url) as resp:
-		        image = await resp.read()
-        done = await ctx.guild.create_custom_emoji(name = name, image = image)
-        await ctx.send("Emoji {} created!".format(done))
 		
     @commands.command()
     async def avatar(self, ctx, *, member: discord.Member = None):
@@ -55,61 +35,16 @@ class utility:
            await ctx.send(content)
            await ctx.message.delete()
 		
-    # @commands.command()
-    # async def hello(self, ctx):
-    #        """*hello
-    #        A command that will respond with a random greeting.
-    #        """
-    #        choices = ('Hey!', 'Hello!', 'Hi!', 'Hallo!', 'Bonjour!', 'Hola!')
-    #        await ctx.send(choice(choices))
     
     @commands.command(aliases=['platform'],hidden=True)
     async def plat(self,ctx):
            await ctx.send('Running on ' + sys.platform)
-	
-    @commands.command(name='members',hidden=True)
-    async def members(self, ctx):
-        server = ctx.guild
-        for member in server.members:
-            await ctx.send(member)
-
-    @commands.command(name='roles',hidden=True)
-    async def _members(self, ctx):
-        server = ctx.guild
-        for role in server.roles:
-            await ctx.send(role)
-
-    @commands.command(name='member',hidden=True)
-    async def roles(self, ctx):
-        server = ctx.guild
-        list = []
-        for member in server.members:
-            list.append(member.name)
-        embed = discord.Embed(name =    'Members', description =    str(list) ,colour =    discord.Colour.green())
-        await ctx.send(embed=embed)
-
-    @commands.command(name='rolee',hidden=True)
-    async def _roles(self, ctx):
-        server = ctx.guild
-        list = []
-        for role in server.roles:
-            list.append(role.name)
-        embed = discord.Embed(name =    'Roles', description =    str(list) ,colour =    discord.Colour.green())
-        await ctx.send(embed=embed)
 
     @commands.command(name='pingme')
     async def pingme(self, ctx):
         embed=discord.Embed(description =    ctx.author.mention,colour =    discord.Colour.red())
         await ctx.send(embed=embed)
-	
-
-    # @commands.command()
-    # @commands.has_permissions(manage_guild = True)
-    # async def changeprefix(self, ctx, prefix):
-	#     '''Change prefix of your bot in guild'''
-	#     await self.bot.db.config.update_one({"gid" : ctx.guild.id}, {"$set" : {"prefix" : prefix}}, upsert = True)
-	#     await ctx.send(f"New Prefix of {ctx.guild.name} is {prefix}, You can also change it again by doing {prefix}changeprefix <newprefix>.")
-
+ 
     @commands.command()
     async def datetime(self, ctx, tz=None):
         """Get the current date and time for a time zone or UTC."""
@@ -149,6 +84,35 @@ class utility:
             if until.days + 1 == 1:
                 return await ctx.send('No, tomorrow is Halloween!')
             await ctx.send(f'No, there are {until.days + 1} more days until Halloween.')
+		
+    @isit.command()
+    async def christmas(self, ctx):
+        '''Is it Christmas?'''
+        now = datetime.datetime.now()
+        c = datetime.datetime(now.year, 12, 25)
+        if now.month == 12 and now.day > 25:
+            c = datetime.datetime((now.year + 1), 12, 25)
+        until = c - now
+        if now.month == 12 and now.day == 25:
+            await ctx.send('Merry Christmas! :christmas_tree: :snowman2:')
+        else:
+            if until.days + 1 == 1:
+                return await ctx.send('No, tomorrow is Christmas!')
+            await ctx.send(f'No, there are {until.days + 1} more days until Christmas.')
+
+    @isit.command()
+    async def newyear(self, ctx):
+        '''When is the new year?'''
+        now = datetime.datetime.now()
+        ny = datetime.datetime(now.year + 1, 1, 1)
+        until = ny - now
+        if now.month == 1 and now.day == 1:
+            await ctx.send('It\'s New Years today! :tada:')
+        else:
+            if until.days + 1 == 1:
+                return await ctx.send('No, tomorrow is New Year\'s Day!')
+            await ctx.send(f'No, there are {until.days + 1} days left until New Year\'s Day.')
+
 
     @whenis.command(aliases=['hallo','hw'])
     async def whalloween(self, ctx):
