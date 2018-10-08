@@ -154,13 +154,29 @@ async def help(ctx):
     embed = discord.Embed(title="tmHack[Official] bot", description="A cool multipurpose bot. List of Categories are:", color=0x007FFF)
     embed.add_field(name="Fun", value="greet | cookie | coinflip | face | fist | tableflip | quotes", inline=False)
     embed.add_field(name="Info", value="avatar | userinfo | serverinfo", inline=False)
-    embed.add_field(name="Utility", value="code | intro | uptime | ping ", inline=False)
+    embed.add_field(name="Utility", value="code | intro | suggest | report | uptime | ping ", inline=False)
     embed.add_field(name="eval", value="Executes python code", inline=False)
     embed.set_footer(text="As the bot is under development, so there may be some bugs in commands.)")
     await ctx.send(embed=embed)
 
+@bot.command(aliases=['fb'])
+async def feedback(ctx, *, msg):
+    member=ctx.author
+    channel = discord.utils.get(member.guild.channels, name="logs")
+    embed = discord.Embed(colour=ctx.author.colour)
+    embed.add_field(name='User', value=ctx.author.name)
+    embed.add_field(name='User ID', value=ctx.author.id, inline=True)
+    embed.add_field(name='Server', value=ctx.guild.name, inline=True)
+    embed.add_field(name='Server ID', value=ctx.guild.id, inline=True)
+    embed.add_field(name='Message', value=msg)
+    embed.add_field(name='Time', value=ctx.message.created_at)  
+    embed.set_thumbnail(url=ctx.author.avatar_url)
+    embed.set_author(name=f'{ctx.message.author}'+" has submitted a feedback", icon_url=None or ctx.author.avatar_url)
+    await channel.send(embed=embed)
+    await ctx.send("Thank you!! Your feedback will be sent to the developer")
 
-@bot.command(name="rep")
+
+@bot.command(aliases=['rep'])
 async def report(ctx,member: discord.Member=None,*,msg):
     channel = discord.utils.get(member.guild.channels, name="logs")
     if member is None:
@@ -176,7 +192,7 @@ async def report(ctx,member: discord.Member=None,*,msg):
         await channel.send(embed=embed)
         await ctx.send("Thank you!! Member had been reported")
 
-@bot.command(name="sug")
+@bot.command(aliases=['sug'])
 async def suggest(ctx,*,msg):
     member=ctx.author
     channel = discord.utils.get(member.guild.channels, name="suggestions")
