@@ -191,7 +191,7 @@ async def report(ctx,member: discord.Member=None,*,msg):
         embed.set_author(name=f'{ctx.message.author}'+" has been reported", icon_url=None or ctx.author.avatar_url)
         await channel.send(embed=embed)
         await ctx.send("Thank you!! Member had been reported")
-	await ctx.message.delete()
+        await ctx.message.delete()
 
 @bot.command(aliases=['sug'])
 async def suggest(ctx,*,msg):
