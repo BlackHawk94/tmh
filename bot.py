@@ -218,4 +218,4 @@ async def hb(self, ctx):
     await ctx.send("Heartbeat ensures the other side is still there, if you don't respond to a heartbeat with a heartbeat ack, discord will assume the connection is dead and disconnect the websocket.\nLikewise, good libraries will disconnect if no heartbeat ack is received from Discord after sending a heartbeat.\nHeartbeat is like... once every 40 seconds or so. It depends on what the gateway suggests the heartbeat should benote the word *suggests* you can ping every 5 seconds if you wanted, but then discord will likely detect API abuse and reset your token\nhttps://cdn.discordapp.com/attachments/392215236612194305/475316704872890388/Selection_073.png\nhttps://media.discordapp.net/attachments/392215236612194305/475316717631963156/Selection_074.png%22")
             
 
-bot.run('NDk4NDYwMjczNDgxNjEzMzEz.DpySZA.OpNc7lGus3aCCCU6_GdqStfGbEg')
+bot.run(os.environ.get("TOKEN"))
