@@ -153,7 +153,7 @@ bot.remove_command('help')
 async def help(ctx):
     embed = discord.Embed(title="tmHack[Official] bot", description="A cool multipurpose bot. List of Categories are:", color=0x007FFF)
     embed.add_field(name="Fun", value="greet | cookie | coinflip | face | fist | tableflip | quotes", inline=False)
-    embed.add_field(name="Info", value="avater | userinfo | serverinfo", inline=False)
+    embed.add_field(name="Info", value="avatar | userinfo | serverinfo", inline=False)
     embed.add_field(name="Utility", value="code | intro | uptime | ping ", inline=False)
     embed.add_field(name="eval", value="Executes python code", inline=False)
     embed.set_footer(text="As the bot is under development, so there may be some bugs in commands.)")
