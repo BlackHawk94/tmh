@@ -174,7 +174,7 @@ async def feedback(ctx, *, msg):
     embed.set_author(name=f'{ctx.message.author}'+" has submitted a feedback", icon_url=None or ctx.author.avatar_url)
     await channel.send(embed=embed)
     await ctx.send("Thank you!! Your feedback will be sent to the developer")
-
+    await ctx.message.delete()
 
 @bot.command(aliases=['rep'])
 async def report(ctx,member: discord.Member=None,*,msg):
@@ -191,6 +191,7 @@ async def report(ctx,member: discord.Member=None,*,msg):
         embed.set_author(name=f'{ctx.message.author}'+" has been reported", icon_url=None or ctx.author.avatar_url)
         await channel.send(embed=embed)
         await ctx.send("Thank you!! Member had been reported")
+	await ctx.message.delete()
 
 @bot.command(aliases=['sug'])
 async def suggest(ctx,*,msg):
@@ -204,6 +205,7 @@ async def suggest(ctx,*,msg):
     embed.set_author(name=f'{ctx.message.author}'+" has submitted a suggestion", icon_url=None or ctx.author.avatar_url)
     await channel.send(embed=embed)
     await ctx.send("Thank you for your suggestion !!")
+    await ctx.message.delete()
 
 @bot.command()
 async def intro(ctx):
