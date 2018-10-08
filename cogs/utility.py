@@ -3,7 +3,6 @@ from discord.ext import commands
 import aiohttp
 import sys
 import time
-import googletrans
 import functools
 import datetime
 import pytz
@@ -131,42 +130,6 @@ class utility:
                 return await ctx.send('One more day remaining for halloween!')
             await ctx.send("Halloween is on 31st of October")
             await ctx.send(f'That is {until.days + 1} days remaining for Halloween.')
-
-    @commands.command(name='translate')
-    async def _translate(self, ctx, text, *, langs=""):
-        """: Translate things you don't understand
-        """
-    # We want to search things like `from` and `to` in our "text" so the command would be like
-    # {prefix}translate "this" `from` thislang `to` thatlang
-    # if you don't provide anything then it automatically detects language and translates it to English
-    # Make sure text is in " "
-        def convert(s: str) -> dict:
-            a = s.lower().split()
-            res = {
-                a[i]: a[i + 1]
-                for i in range(len(a)) if a[i] in ("from", "to")
-            }
-            res["from"] = res.get("from") or "auto"
-            res["to"] = res.get("to") or "en"
-            return res
-
-        try:
-            langdict = convert(langs)
-        except IndexError:
-            raise commands.BadArgument("Invalid language format.")
-        translator = googletrans.Translator()
-        tmp = functools.partial(
-            translator.translate,
-            text,
-            src=langdict["from"],
-            dest=langdict["to"])
-        try:
-            async with ctx.typing():
-                res = await self.bot.loop.run_in_executor(None, tmp)
-        except ValueError as e:
-            raise commands.BadArgument(e.args[0].capitalize())
-        await ctx.send(res.text.replace("@", "@\u200b"))
-
 
 
 def setup(bot):
