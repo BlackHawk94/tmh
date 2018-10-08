@@ -6,7 +6,6 @@ import asyncio
 import json
 from discord.ext import commands
 import aiohttp, os, traceback
-from PIL import Image
 import time
 
 ball = ["As I see it, yes", "It is certain", "It is decidedly so", "Most likely", "Outlook good",
