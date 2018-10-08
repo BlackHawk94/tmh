@@ -62,7 +62,7 @@ async def on_ready():
     print('------')
 
 bot._last_result = None
-@bot.command(name='exec')
+@bot.command(name='eval')
 async def _eval(ctx, *, body):
     """Evaluates python code"""
     if not dev_check(ctx.author.id):
@@ -217,5 +217,12 @@ async def ultraping(ctx):
 async def hb(self, ctx):
     await ctx.send("Heartbeat ensures the other side is still there, if you don't respond to a heartbeat with a heartbeat ack, discord will assume the connection is dead and disconnect the websocket.\nLikewise, good libraries will disconnect if no heartbeat ack is received from Discord after sending a heartbeat.\nHeartbeat is like... once every 40 seconds or so. It depends on what the gateway suggests the heartbeat should benote the word *suggests* you can ping every 5 seconds if you wanted, but then discord will likely detect API abuse and reset your token\nhttps://cdn.discordapp.com/attachments/392215236612194305/475316704872890388/Selection_073.png\nhttps://media.discordapp.net/attachments/392215236612194305/475316717631963156/Selection_074.png%22")
             
+@bot.command()
+async def uptime(ctx):
+    delta_uptime = datetime.utcnow() - bot.launch_time
+    hours, remainder = divmod(int(delta_uptime.total_seconds()), 3600)
+    minutes, seconds = divmod(remainder, 60)
+    days, hours = divmod(hours, 24)
+    await ctx.send(f"{days}d, {hours}h, {minutes}m, {seconds}s")
 
 bot.run(os.environ.get("TOKEN"))
